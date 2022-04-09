@@ -173,8 +173,12 @@ function add_attachment_tags($id_attach, $new_tags, $clear_first = false)
 			$old_tags = array();
 	}
 
-	$new_tags = array_unique(array_merge($old_tags, $new_tags));
+	// Merge old & new, trim all, dedupe, sort...
+	$new_tags = array_merge($old_tags, $new_tags);
+	$new_tags = array_map('trim', $new_tags);
+	$new_tags = array_unique($new_tags);
 	sort($new_tags);
+
 	$new_str = implode(',', $new_tags);
 
 	// Check vs field length...
