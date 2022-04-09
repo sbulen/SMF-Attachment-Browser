@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<name>Attachment Browser</name>
+	<id>shawnb61:AttachmentBrowser</id>
+	<version>1.0</version>
+	<type>modification</type>
+	<install for="2.1.1-2.1.99">
+		<readme type="file" parsebbc="true">readme.txt</readme> 
+		<database type="file">AttachmentBrowserDBChanges.php</database>
+		<require-dir name="Sources" destination="$boarddir"/>
+        <require-dir name="Themes" destination="$boarddir"/>
+		<hook hook="integrate_menu_buttons" function="attachment_browser_buttons" file="$sourcedir/AttachmentBrowserHooks.php" />
+		<hook hook="integrate_actions" function="attachment_browser_actions" file="$sourcedir/AttachmentBrowserHooks.php" />
+		<hook hook="integrate_current_action" function="attachment_browser_current_action" file="$sourcedir/AttachmentBrowserHooks.php" />
+		<hook hook="integrate_assign_attachments" function="attachment_browser_auto_tag" file="$sourcedir/AttachmentBrowserHooks.php" />
+		<hook hook="integrate_admin_areas" function="attachment_browser_admin_menu" file="$sourcedir/AttachmentBrowserHooks.php" />
+		<redirect url="$scripturl?action=attbr" />
+	</install>	
+	<uninstall for="2.1.1-2.1.99">
+		<hook hook="integrate_menu_buttons" function="attachment_browser_buttons" file="$sourcedir/AttachmentBrowserHooks.php" reverse="true" />
+		<hook hook="integrate_actions" function="attachment_browser_actions" file="$sourcedir/AttachmentBrowserHooks.php" reverse="true" />
+		<hook hook="integrate_current_action" function="attachment_browser_current_action" file="$sourcedir/AttachmentBrowserHooks.php" reverse="true" />
+		<hook hook="integrate_assign_attachments" function="attachment_browser_auto_tag" file="$sourcedir/AttachmentBrowserHooks.php" reverse="true" />
+		<hook hook="integrate_admin_areas" function="attachment_browser_admin_menu" file="$sourcedir/AttachmentBrowserHooks.php" reverse="true" />
+		<remove-file name="$sourcedir/AttachmentBrowser.php" />
+		<remove-file name="$sourcedir/AttachmentBrowserHooks.php" />
+		<remove-file name="$sourcedir/AttachmentBrowserModel.php" />
+		<remove-file name="$sourcedir/tasks/AttachmentBrowser-AutoTag.php" />
+		<remove-file name="$themedir/AttachmentBrowser.template.php" />
+		<remove-file name="$themedir/AttachmentBrowserMaint.template.php" />
+		<remove-file name="$themedir/languages/AttachmentBrowser.english.php" />
+		<remove-file name="$themedir/css/attachmentbrowser.css" />
+	</uninstall>
+</package-info>
