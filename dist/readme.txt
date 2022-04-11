@@ -22,3 +22,6 @@ A "Search Again" button is provided to allow the user to refine the filter.
  - Only 255 characters of tag info per attachment are supported.  You need to find the right level of categorization.
  - The focus is attachments - avatars & thumbnails are excluded.
  - Performance is a concern given the flexibility provided.  This mod may not be appropriate for extremely large forums.  In testing, for forums with less than 20K attachments, performance is sub-second.  For a forum with 500K attachments, performance is ~2-6 seconds per page. YMMV. The more filters used to narrow the result set, the better!
+
+
+[b]Thanks to @Bugo for the Russian translation![/b]

@@ -156,8 +156,8 @@ function template_filter()
 	{
 		echo '
 					<div class="inline_block">
-						<input name="fileexts[', $fileext, ']" type = "checkbox"', (!empty($context['old_search']['fileexts']) && in_array($fileext, $context['old_search']['fileexts'])  ? "checked" : ''), '>
-						<label for="', $fileext, '">', $fileext, '</label>
+						<input id="attach_', $fileext, '" name="fileexts[', $fileext, ']" type="checkbox"', (!empty($context['old_search']['fileexts']) && in_array($fileext, $context['old_search']['fileexts'])  ? "checked" : ''), '>
+						<label for="attach_', $fileext, '">', $fileext, '</label>
 					</div>';
 	}
 
@@ -176,7 +176,7 @@ function template_filter()
 		{
 			echo '
 						<div class="inline_block">
-							<input name="tags[', $tag, ']" type = "checkbox"', (!empty($context['old_search']['tags']) && in_array($tag, $context['old_search']['tags']) ? "checked" : ''), '>
+							<input name="tags[', $tag, ']" type="checkbox"', (!empty($context['old_search']['tags']) && in_array($tag, $context['old_search']['tags']) ? "checked" : ''), '>
 							<label for="', $tag, '">', $tag, (!empty($aliases) ? ' (' . $aliases . ')' : ''), '</label>
 						</div>';
 		}
@@ -284,7 +284,7 @@ function template_editattach()
 		{
 			echo '
 						<div class="inline_block">
-							<input name="tags[', $tag, ']" type = "checkbox"', (!empty($context['attachment']['tags']) && in_array($tag, $context['attachment']['tags']) ? "checked" : ''), '>
+							<input name="tags[', $tag, ']" type="checkbox"', (!empty($context['attachment']['tags']) && in_array($tag, $context['attachment']['tags']) ? "checked" : ''), '>
 							<label for="', $tag, '">', $tag, (!empty($aliases) ? ' (' . $aliases . ')' : ''), '</label>
 						</div>';
 		}

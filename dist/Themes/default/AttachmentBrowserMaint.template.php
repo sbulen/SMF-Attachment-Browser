@@ -101,7 +101,7 @@ function template_tags()
 		{
 			echo '
 						<li>
-							<input name="tag[', $tag, ']" type = "checkbox">
+							<input name="tag[', $tag, ']" type="checkbox">
 							<label for="', $tag, '">', $tag, (!empty($aliases) ? ' (' . $aliases . ')' : ''), '</label>
 						</li>';
 		}
