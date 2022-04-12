@@ -226,9 +226,14 @@ function browse_all_attachments()
  */
 function attachment_filter()
 {
-	global $txt, $scripturl, $context, $modSettings, $smcFunc;
+	global $txt, $scripturl, $context, $modSettings, $smcFunc, $user_info;
 
 	$context['page_title'] = $txt['attbr_search'];
+
+	// Some basic checks...  Valid user that can see stuff?
+	$boards = boardsAllowedTo('view_attachments', true, true);
+	if (empty($boards) && empty($user_info['is_admin']))
+		redirectexit();
 
 	// Filter requests have been made, display the results...
 	if ((isset($_REQUEST['fileexts']) || isset($_REQUEST['poster']) || isset($_REQUEST['tags'])) && empty($_REQUEST['again']))
