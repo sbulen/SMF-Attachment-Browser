@@ -18,7 +18,6 @@ When using the tags to filter the list of attachments, the search utilizes ANDs 
 A "Search Again" button is provided to allow the user to refine the filter.
 
 [b]Limitations:[/b]
- - Downloads work in SMF 2.1.2+ only.  This mod makes use of the cleaner attachment links introduced in 2.1.2.
  - Only 255 characters of tag info per attachment are supported.  You need to find the right level of categorization.
  - The focus is attachments - avatars & thumbnails are excluded.
  - Performance is a concern given the flexibility provided.  This mod may not be appropriate for extremely large forums.  In testing, for forums with less than 20K attachments, performance is sub-second.  For a forum with 500K attachments, performance is ~2-6 seconds per page. YMMV. The more filters used to narrow the result set, the better!
