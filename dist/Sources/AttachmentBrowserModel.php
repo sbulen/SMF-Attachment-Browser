@@ -110,8 +110,8 @@ function add_tag($attach_tag, $attach_cat, $aliases = '')
 	// Kill the cache...
 	if (!empty($cache_enable))
 	{
-		cache_put_data('attbr_aliases', array(), 0);
-		cache_put_data('attbr_tags', array(), 0);
+		cache_put_data('attbr_aliases', null);
+		cache_put_data('attbr_tags', null);
 	}
 }
 
@@ -138,8 +138,8 @@ function delete_tag($tag)
 	// Kill the cache...
 	if (!empty($cache_enable))
 	{
-		cache_put_data('attbr_aliases', array(), 0);
-		cache_put_data('attbr_tags', array(), 0);
+		cache_put_data('attbr_aliases', null);
+		cache_put_data('attbr_tags', null);
 	}
 }
 
