@@ -31,6 +31,7 @@
 		<remove-file name="$themedir/AttachmentBrowserMaint.template.php" />
 		<remove-file name="$themedir/languages/AttachmentBrowser.english.php" />
 		<remove-file name="$themedir/languages/AttachmentBrowser.russian.php" />
+		<remove-file name="$themedir/languages/AttachmentBrowser.dutch.php" />
 		<remove-file name="$themedir/css/attachmentbrowser.css" />
 	</uninstall>
 </package-info>
