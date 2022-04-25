@@ -796,12 +796,9 @@ function auto_tag_message($msg_id, $attach_ids)
 	}
 
 	// Finally, apply the tags!
-	if (!empty($tags))
-	{
-		$tags = array_unique($tags);
-		foreach ($attach_ids AS $attach_id)
-			add_attachment_tags($attach_id, $tags);
-	}
+	$tags = array_unique($tags);
+	foreach ($attach_ids AS $attach_id)
+		add_attachment_tags($attach_id, $tags);
 }
 
 /**

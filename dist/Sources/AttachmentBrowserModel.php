@@ -158,9 +158,18 @@ function delete_tag($tag)
 function add_attachment_tags($id_attach, $new_tags, $clear_first = false)
 {
 	global $smcFunc, $txt;
+	static $all_tags = null;
 
 	if (empty($id_attach))
 		return;
+
+	// Get all the tags
+	if ($all_tags === null)
+	{
+		$all_tags = get_tags();
+		$all_tags = array_keys($all_tags);
+		sort($all_tags);
+	}
 
 	if ($clear_first)
 		$old_tags = array();
@@ -178,6 +187,9 @@ function add_attachment_tags($id_attach, $new_tags, $clear_first = false)
 	$new_tags = array_map('trim', $new_tags);
 	$new_tags = array_unique($new_tags);
 	sort($new_tags);
+
+	// Only use active, current tags
+	$new_tags = array_intersect($new_tags, $all_tags);
 
 	$new_str = implode(',', $new_tags);
 
