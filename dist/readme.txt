@@ -22,6 +22,9 @@ A "Search Again" button is provided to allow the user to refine the filter.
  - The focus is attachments - avatars & thumbnails are excluded.
  - Performance is a concern given the flexibility provided.  This mod may not be appropriate for extremely large forums.  In testing, for forums with less than 20K attachments, performance is sub-second.  For a forum with 500K attachments, performance is ~2-6 seconds per page. YMMV. The more filters used to narrow the result set, the better!
 
+[b]Releases:[/b]
+ - v1.5 Initial public release
 
-[b]Thanks to Bugo for the Russian translation![/b]
-[b]Thanks to @rjen for the Dutch translation![/b]
+[b]Acknowledgements:[/b]
+ - Thanks to Bugo for the Russian translation!
+ - Thanks to @rjen for the Dutch translation!
