@@ -132,7 +132,7 @@ function delete_tag($tag)
 		WHERE attach_tag IN ({array_string:attach_tag})',
 		array(
 			'attach_tag' => $tag
-		),
+		)
 	);
 
 	// Kill the cache...
@@ -220,7 +220,7 @@ function add_attachment_tags($id_attach, $new_tags, $clear_first = false)
 			'id_attach' => $id_attach,
 			'new_tags' => $new_str,
 			'attachment_type' => 0,
-		),
+		)
 	);
 	return $success;
 }
@@ -764,6 +764,6 @@ function delete_setting($setting)
 		WHERE variable = {string:setting}',
 		array(
 			'setting' => $setting
-		),
+		)
 	);
 }
