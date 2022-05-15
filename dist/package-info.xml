@@ -3,7 +3,7 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<name>Attachment Browser</name>
 	<id>shawnb61:AttachmentBrowser</id>
-	<version>1.7</version>
+	<version>1.8</version>
 	<type>modification</type>
 	<install for="2.1.2-2.1.99">
 		<readme type="file" parsebbc="true">readme.txt</readme> 

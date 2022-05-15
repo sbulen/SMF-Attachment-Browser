@@ -274,7 +274,7 @@ function get_attachment_info($id_attach)
 		    $info[$row['id_attach']]['tags'] = '';
 		else
 		    $info[$row['id_attach']]['tags'] = str_replace(',', ', ', $info[$row['id_attach']]['tags']);
-		if (($info[$row['id_attach']]['id_member'] == $user_info['id']) || $user_info['is_admin'])
+		if (($info[$row['id_attach']]['id_member'] == $user_info['id']) || !empty($user_info['is_admin']))
 			$info[$row['id_attach']]['editable'] = true;
 		$info[$row['id_attach']]['size'] = format_bkmg($info[$row['id_attach']]['size']);
 		$info[$row['id_attach']]['downloads'] = comma_format($info[$row['id_attach']]['downloads']);
