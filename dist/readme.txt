@@ -23,6 +23,7 @@ A "Search Again" button is provided to allow the user to refine the filter.
  - Performance is a concern given the flexibility provided.  This mod may not be appropriate for extremely large forums.  In testing, for forums with less than 20K attachments, performance is sub-second.  For a forum with 500K attachments, performance is ~2-6 seconds per page. YMMV. The more filters used to narrow the result set, the better!
 
 [b]Releases:[/b]
+ - v1.10 Added German translations
  - v1.9 Addresses array offset on null error
  - v1.8 Addresses undefined error
  - v1.7 Added Spanish translations
@@ -32,3 +33,4 @@ A "Search Again" button is provided to allow the user to refine the filter.
  - Thanks to Bugo for the Russian translation!
  - Thanks to @rjen for the Dutch translation!
  - Thanks to -Rock Lee- for the Spanish translations!
+ - Thanks to AllMassive for the German translations!
