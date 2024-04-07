@@ -2,7 +2,7 @@
 /**
  *	Template for the Attachment Browser mod for SMF.
  *
- *	Copyright 2022 Shawn Bulen
+ *	Copyright 2022-2024 Shawn Bulen
  *
  *	The Attachment Browser is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
