@@ -3,6 +3,7 @@
 
 $txt['filename'] = 'Filename';
 $txt['poster_name'] = 'Posted by';
+$txt['post_time'] = 'Posted on';
 $txt['fileext'] = 'Ext';
 $txt['fileext_long'] = 'Extension';
 $txt['filesize'] = 'File Size';

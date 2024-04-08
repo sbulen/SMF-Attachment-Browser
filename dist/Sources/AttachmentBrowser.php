@@ -71,6 +71,14 @@ function browse_attachments()
 				'up' => 'mem.real_name ASC'
 			),
 		),
+		'post_time' => array(
+			'label' => $txt['post_time'],
+			'class' => 'abposttime lefttext',
+			'sort' => array(
+				'down' => 'CASE WHEN m.modified_time > 0 THEN m.modified_time ELSE m.poster_time END DESC',
+				'up' => 'CASE WHEN m.modified_time > 0 THEN m.modified_time ELSE m.poster_time END ASC'
+			),
+		),
 		'filename' => array(
 			'label' => $txt['filename'],
 			'class' => 'abfilename lefttext',

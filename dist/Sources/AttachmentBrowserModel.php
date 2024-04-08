@@ -251,7 +251,7 @@ function get_attachment_info($id_attach)
 		$single = false;
 
 	$request = $smcFunc['db_query']('', '
-		SELECT a.id_attach, a.id_msg, a.filename, a.fileext, a.size, a.downloads, a.tags, m.subject, m.id_member, mem.real_name
+		SELECT a.id_attach, a.id_msg, a.filename, a.fileext, a.size, a.downloads, a.tags, m.subject, m.id_member, mem.real_name, CASE WHEN m.modified_time > 0 THEN m.modified_time ELSE m.poster_time END AS post_time
 			FROM {db_prefix}attachments AS a
 			INNER JOIN {db_prefix}messages AS m ON (a.id_msg = m.id_msg)
 			INNER JOIN {db_prefix}members AS mem ON (m.id_member = mem.id_member)
@@ -278,6 +278,7 @@ function get_attachment_info($id_attach)
 			$info[$row['id_attach']]['editable'] = true;
 		$info[$row['id_attach']]['size'] = format_bkmg($info[$row['id_attach']]['size']);
 		$info[$row['id_attach']]['downloads'] = comma_format($info[$row['id_attach']]['downloads']);
+		$info[$row['id_attach']]['post_time'] =  smf_strftime('%Y-%m-%d', $info[$row['id_attach']]['post_time']);
 	}
 
 	// Gotta check it exists...  Thumbnails can get caught late here...

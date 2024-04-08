@@ -77,6 +77,7 @@ function template_main()
 					<tr class="windowbg">',
 						'<td class="absubject lefttext"><a href="' . $scripturl . '?msg=', $attachment['id_msg'], '" rel="ugc" target="_blank">', $attachment['subject'], '</a></td>',
 						'<td class="abposter lefttext">', $attachment['real_name'], '</td>',
+						'<td class="abposttime lefttext">', $attachment['post_time'], '</td>',
 						'<td class="abfilename lefttext"><a href="' . $scripturl . '?action=dlattach;attach=', $attachment['id_attach'], '" rel="ugc">', $attachment['filename'], '</a></td>',
 						'<td class="abfileext lefttext">', $attachment['fileext'], '</td>',
 						'<td class="absize righttext">', $attachment['size'], '</td>',

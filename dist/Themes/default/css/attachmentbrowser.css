@@ -1,23 +1,23 @@
 /* Chunk it up a bit 1... */
 @media screen and (max-width: 800px) {
-	th.absize, th.abdownloads,
-	td.absize, td.abdownloads {
+	th.abposttime, th.absize, th.abdownloads,
+	td.abposttime, td.absize, td.abdownloads {
 		display: none;
 	}
 }
 
 /* Chunk it up a bit 2... */
 @media (max-width: 720px) {
-	th.abposter, th.abfileext, th.absize, th.abdownloads,
-	td.abposter, td.abfileext, td.absize, td.abdownloads {
+	th.abposter, th.abfileext, th.abposttime, th.absize, th.abdownloads,
+	td.abposter, td.abfileext, td.abposttime, td.absize, td.abdownloads {
 		display: none;
 	}
 }
 
 /* Chunk it up a bit 3... */
 @media (max-width: 480px) {
-	th.abposter, th.abfileext, th.absize, th.abdownloads, th.abtags,
-	td.abposter, td.abfileext, td.absize, td.abdownloads, td.abtags {
+	th.abposter, th.abfileext, th.abposttime, th.absize, th.abdownloads, th.abtags,
+	td.abposter, td.abfileext, td.abposttime, td.absize, td.abdownloads, td.abtags {
 		display: none;
 	}
 }
