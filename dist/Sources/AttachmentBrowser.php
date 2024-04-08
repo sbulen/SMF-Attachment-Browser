@@ -234,7 +234,7 @@ function browse_all_attachments()
  */
 function attachment_filter()
 {
-	global $txt, $scripturl, $context, $modSettings, $smcFunc, $user_info;
+	global $txt, $scripturl, $context, $modSettings, $smcFunc, $user_info, $sourcedir;
 
 	$context['page_title'] = $txt['attbr_search'];
 
@@ -363,6 +363,11 @@ function attachment_filter()
 
 		// Auto complete for poster field...
 		loadJavaScriptFile('suggest.js', array('defer' => false, 'minimize' => true), 'smf_suggest');
+
+		// Use handy date range routines
+		require_once($sourcedir . '/Subs-Calendar.php');
+		loadDatePicker('#post_range_input .date_input');
+		loadDatePair('#post_range_input', 'date_input');
 	}
 
 	// Do the linktree...

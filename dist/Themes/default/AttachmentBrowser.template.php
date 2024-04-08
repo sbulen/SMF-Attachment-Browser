@@ -144,7 +144,18 @@ function template_filter()
 					</dt>
 					<dd>
 						<input id="userspec" type="text" name="poster" size="40" autocomplete="off" value="', (!empty($context['old_search']['poster']) ? $context['old_search']['poster'] : ''), '">
-					</dd>
+					</dd>';
+
+	// Posted on date range
+	echo '
+					<div id="post_range_input">
+						<dt>
+							<label for="start_date"><strong>', $txt['post_time'], ':</strong></label>
+						</dt>
+						<dd>
+							<input type="text" name="start_date" id="start_date" value="', (!empty($context['old_search']['start_date']) ? $context['old_search']['start_date'] : ''), '" class="date_input start" data-type="date"> ', strtolower($txt['to']), ' </strong></label><input type="text" name="end_date" id="end_date" value="', (!empty($context['old_search']['end_date']) ? $context['old_search']['end_date'] : ''), '" class="date_input end" data-type="date">
+						</dd>
+					</div>
 				</dl>';
 
 	// File extension dropdown
