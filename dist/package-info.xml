@@ -3,7 +3,7 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<name>Attachment Browser</name>
 	<id>shawnb61:AttachmentBrowser</id>
-	<version>1.10</version>
+	<version>1.11</version>
 	<type>modification</type>
 	<install for="2.1.2-2.1.99">
 		<readme type="file" parsebbc="true">readme.txt</readme> 
@@ -30,6 +30,7 @@
 		<remove-file name="$themedir/AttachmentBrowser.template.php" />
 		<remove-file name="$themedir/AttachmentBrowserMaint.template.php" />
 		<remove-file name="$themedir/languages/AttachmentBrowser.english.php" />
+		<remove-file name="$themedir/languages/AttachmentBrowser.french.php" />
 		<remove-file name="$themedir/languages/AttachmentBrowser.russian.php" />
 		<remove-file name="$themedir/languages/AttachmentBrowser.dutch.php" />
 		<remove-file name="$themedir/languages/AttachmentBrowser.spanish_es.php" />
