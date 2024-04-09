@@ -300,16 +300,34 @@ function attachment_filter()
 		}
 
 		// Searching for date range?
+		// If it cannot translate dates cleanly to unix dates, get rid of them.
 		if (!empty($_REQUEST['start_date']))
 		{
-			$query_parameters['start_date'] = $_REQUEST['start_date'];
-			$search_string .= ';start_date=' . $_REQUEST['start_date'];
+			$clean_start_date = clean_epoch_date($_REQUEST['start_date']);
+			if (!empty($clean_start_date))
+			{
+				$query_parameters['start_date'] = $clean_start_date;
+				$search_string .= ';start_date=' . $_REQUEST['start_date'];
+			}
+			else
+				$_REQUEST['start_date'] = '';
 		}
+		else
+			$_REQUEST['start_date'] = '';
+
 		if (!empty($_REQUEST['end_date']))
 		{
-			$query_parameters['end_date'] = $_REQUEST['end_date'];
-			$search_string .= ';end_date=' . $_REQUEST['end_date'];
+			$clean_end_date = clean_epoch_date($_REQUEST['end_date']);
+			if (!empty($clean_end_date))
+			{
+				$query_parameters['end_date'] = $clean_end_date;
+				$search_string .= ';end_date=' . $_REQUEST['end_date'];
+			}
+			else
+				$_REQUEST['end_date'] = '';
 		}
+		else
+			$_REQUEST['end_date'] = '';
 
 		// Searching for tags?
 		if (!empty($_REQUEST['tags']))
@@ -919,4 +937,38 @@ function return_url()
 		$url .= ';tags=' . $_SESSION['old_request']['tags'];
 
 	return $url;
+}
+
+/**
+ * clean_epoch_date - Format date provided as a unix epoch date, factoring in user time zone.
+ *
+ * Action: NA - helper function
+ *
+ * @param string - date to clean
+ *
+ * @return int unixdate
+ *
+ */
+function clean_epoch_date($date)
+{
+	global $sourcedir;
+
+	$unixdate = 0;
+
+	if (empty($date) || !is_string($date))
+		return $unixdate;
+
+	require_once($sourcedir . '/Subs-Calendar.php');
+	$date_parsed = date_parse(str_replace(',', '', convertDateToEnglish($date)));
+	if (empty($date_parsed['error_count']) && empty($date_parsed['warning_count']))
+	{
+		if (checkdate($date_parsed['month'], $date_parsed['day'], $date_parsed['year']))
+		{
+			$date_obj = date_create($date_parsed['year'] . '-' . $date_parsed['month'] . '-' . $date_parsed['day'] . ' ' . getUserTimezone());
+			if ($date_obj !== false)
+				$unixdate = date_timestamp_get($date_obj);
+		}
+	}
+
+	return $unixdate;
 }

@@ -382,6 +382,20 @@ function query_attachments($query_parameters)
 	if (!empty($query_parameters['poster']))
 		$where_clause .= 'AND mem.real_name = {string:poster} ';
 
+	// Date range specified?  Note we factor in modified as well as post dates here,
+	// in case folks update attachments to a post.
+	if (!empty($query_parameters['start_date']))
+	{
+		$where_clause .= 'AND CASE WHEN m.modified_time > 0 THEN m.modified_time >= {int:start_date} ELSE m.poster_time >= {int:start_date} END ';
+	}
+
+	// To capture whole date, check for < end_date + 1 day
+	if (!empty($query_parameters['end_date']))
+	{
+		$query_parameters ['end_date'] += 86400;
+		$where_clause .= 'AND CASE WHEN m.modified_time > 0 THEN m.modified_time < {int:end_date} ELSE m.poster_time < {int:end_date} END ';
+	}
+
 	// If tags in query, build tags clause
 	$tags_clause = '';
 	if (!empty($query_parameters['tags']))
@@ -540,6 +554,10 @@ function new_count_needed($query_parameters)
 		$temp['poster'] = $query_parameters['poster'];
 	if (!empty($query_parameters['tags']))
 		$temp['tags'] = $query_parameters['tags'];
+	if (!empty($query_parameters['start_date']))
+		$temp['start_date'] = $query_parameters['start_date'];
+	if (!empty($query_parameters['end_date']))
+		$temp['end_date'] = $query_parameters['end_date'];
 
 	if (!isset($_SESSION['attbr_prev_count']['count']) || !isset($_SESSION['attbr_prev_count']['filters']) || !isset($_SESSION['attbr_prev_count']['timer']) || ($temp !== $_SESSION['attbr_prev_count']['filters']) || (time() - $_SESSION['attbr_prev_count']['timer'] > 600))
 	{
