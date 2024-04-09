@@ -244,7 +244,7 @@ function attachment_filter()
 		redirectexit();
 
 	// Filter requests have been made, display the results...
-	if ((isset($_REQUEST['fileexts']) || isset($_REQUEST['poster']) || isset($_REQUEST['tags'])) && empty($_REQUEST['again']))
+	if ((isset($_REQUEST['fileexts']) || isset($_REQUEST['poster']) || isset($_REQUEST['tags']) || isset($_REQUEST['start_date']) || isset($_REQUEST['end_date'])) && empty($_REQUEST['again']))
 	{
 		// Start building the query...
 		$query_parameters = array(
@@ -297,6 +297,18 @@ function attachment_filter()
 		{
 			$query_parameters['poster'] = $_REQUEST['poster'];
 			$search_string .= ';poster=' . $_REQUEST['poster'];
+		}
+
+		// Searching for date range?
+		if (!empty($_REQUEST['start_date']))
+		{
+			$query_parameters['start_date'] = $_REQUEST['start_date'];
+			$search_string .= ';start_date=' . $_REQUEST['start_date'];
+		}
+		if (!empty($_REQUEST['end_date']))
+		{
+			$query_parameters['end_date'] = $_REQUEST['end_date'];
+			$search_string .= ';end_date=' . $_REQUEST['end_date'];
 		}
 
 		// Searching for tags?
@@ -360,6 +372,10 @@ function attachment_filter()
 			$context['old_search']['poster'] = $_REQUEST['poster'];
 		if (!empty($_REQUEST['tags']))
 			$context['old_search']['tags'] = explode(',', $_REQUEST['tags']);
+		if (!empty($_REQUEST['start_date']))
+			$context['old_search']['start_date'] = $_REQUEST['start_date'];
+		if (!empty($_REQUEST['end_date']))
+			$context['old_search']['end_date'] = $_REQUEST['end_date'];
 
 		// Auto complete for poster field...
 		loadJavaScriptFile('suggest.js', array('defer' => false, 'minimize' => true), 'smf_suggest');
@@ -841,6 +857,10 @@ function save_request_info()
 		$_SESSION['old_request']['desc'] = $_REQUEST['desc'];
 	if (!empty($_REQUEST['poster']))
 		$_SESSION['old_request']['poster'] = $_REQUEST['poster'];
+	if (!empty($_REQUEST['start_date']))
+		$_SESSION['old_request']['start_date'] = $_REQUEST['start_date'];
+	if (!empty($_REQUEST['end_date']))
+		$_SESSION['old_request']['end_date'] = $_REQUEST['end_date'];
 
 	if (!empty($_REQUEST['fileexts']))
 	{
@@ -889,6 +909,10 @@ function return_url()
 		$url .= ';desc';
 	if (!empty($_SESSION['old_request']['poster']))
 		$url .= ';poster=' . $_SESSION['old_request']['poster'];
+	if (!empty($_SESSION['old_request']['start_date']))
+		$url .= ';start_date=' . $_SESSION['old_request']['start_date'];
+	if (!empty($_SESSION['old_request']['end_date']))
+		$url .= ';end_date=' . $_SESSION['old_request']['end_date'];
 	if (!empty($_SESSION['old_request']['fileexts']))
 		$url .= ';fileexts=' . $_SESSION['old_request']['fileexts'];
 	if (!empty($_SESSION['old_request']['tags']))
