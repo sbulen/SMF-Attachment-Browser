@@ -21,3 +21,8 @@
 		display: none;
 	}
 }
+
+/* Or else very long words, filenames can mess up smartphone tables */
+ .absubject, .abfilename {
+	 word-break: break-word;
+}
