@@ -138,6 +138,12 @@ function browse_attachments()
 
 	$_REQUEST['sa'] = $context['sub_action'];
 
+	// Make sure view is set
+	if (isset($_REQUEST['viewgrid']))
+		$context['attbr_view'] = 'viewgrid';
+	else
+		$context['attbr_view'] = 'viewlist';
+
 	// Save off request info for display lists - it will be useful for resuming browsing later
 	if (isset($_REQUEST['sa']) && in_array($_REQUEST['sa'], array('all', 'filter')))
 		save_request_info();
@@ -197,6 +203,8 @@ function browse_all_attachments()
 		if ((!isset($_REQUEST['desc']) && $col == $_REQUEST['sort']) || ($col != $_REQUEST['sort'] && !empty($column_details['default_sort_rev'])))
 			$context['columns'][$col]['href'] .= ';desc';
 
+		$context['columns'][$col]['href'] .= ';' . $context['attbr_view'];
+
 		$context['columns'][$col]['link'] = '<a href="' . $context['columns'][$col]['href'] . '" rel="ugc">' . $context['columns'][$col]['label'] . '</a>';
 		$context['columns'][$col]['selected'] = $_REQUEST['sort'] == $col;
 	}
@@ -204,9 +212,11 @@ function browse_all_attachments()
 	// This helps the little sort icon...
 	$context['sort_direction'] = !isset($_REQUEST['desc']) ? 'up' : 'down';
 
-	// Construct the page index.
-	$context['page_index'] = constructPageIndex($scripturl . '?action=attbr;sa=all;sort=' . $_REQUEST['sort'] . (isset($_REQUEST['desc']) ? ';desc' : ''), $_REQUEST['start'], $query_result['num_attachments'], $modSettings['defaultMaxMembers']);
+	// Construct the url for grid/list buttons.
+	$context['attbr_url'] = $scripturl . '?action=attbr;sa=all;sort=' . $_REQUEST['sort'] . (isset($_REQUEST['desc']) ? ';desc' : '') . ';start=' . (int) $_REQUEST['start'];
 
+	// Construct the page index.
+	$context['page_index'] = constructPageIndex($scripturl . '?action=attbr;sa=all;' . $context['attbr_view'] . ';sort=' . $_REQUEST['sort'] . (isset($_REQUEST['desc']) ? ';desc' : ''), $_REQUEST['start'], $query_result['num_attachments'], $modSettings['defaultMaxMembers']);
 
 	// Linktree...
 	$context['start'] = $_REQUEST['start'] + 1;
@@ -357,6 +367,8 @@ function attachment_filter()
 			if ((!isset($_REQUEST['desc']) && $col == $_REQUEST['sort']) || ($col != $_REQUEST['sort'] && !empty($column_details['default_sort_rev'])))
 				$context['columns'][$col]['href'] .= ';desc';
 
+			$context['columns'][$col]['href'] .= ';' . $context['attbr_view'];
+
 			$context['columns'][$col]['href'] .= $search_string;
 
 			$context['columns'][$col]['link'] = '<a href="' . $context['columns'][$col]['href'] . '" rel="ugc">' . $context['columns'][$col]['label'] . '</a>';
@@ -370,8 +382,11 @@ function attachment_filter()
 		$query_result = query_attachments($query_parameters);
 		$context['attachments'] = $query_result['attachments'];
 
+		// Construct the url for grid/list buttons.
+		$context['attbr_url'] = $scripturl . '?action=attbr;sa=filter;sort=' . $_REQUEST['sort'] . (isset($_REQUEST['desc']) ? ';desc' : '') . $search_string . ';start=' . (int) $_REQUEST['start'];
+
 		// Construct the page index.
-		$context['page_index'] = constructPageIndex($scripturl . '?action=attbr;sa=filter;sort=' . $_REQUEST['sort'] . (isset($_REQUEST['desc']) ? ';desc' : '') . $search_string, $_REQUEST['start'], $query_result['num_attachments'], $modSettings['defaultMaxMembers']);
+		$context['page_index'] = constructPageIndex($scripturl . '?action=attbr;sa=filter;' . $context['attbr_view'] . ';sort=' . $_REQUEST['sort'] . (isset($_REQUEST['desc']) ? ';desc' : '') . $search_string, $_REQUEST['start'], $query_result['num_attachments'], $modSettings['defaultMaxMembers']);
 
 		$context['sub_template'] = 'main';
 	}

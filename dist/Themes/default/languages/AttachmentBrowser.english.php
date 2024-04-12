@@ -18,6 +18,8 @@ $txt['attbr_search'] = 'Search for Attachments';
 $txt['attbr_editattachtags'] = 'Edit Attachment Tags';
 $txt['attbr_desc'] = 'Perform maintenance on the tags used in the Attachment Browser.';
 
+$txt['attbr_grid'] = 'Grid';
+
 $txt['attbr_tags'] = 'Attachment Tags';
 $txt['attbr_tagmaint'] = 'Tag Maintenance';
 

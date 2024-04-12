@@ -1,8 +1,18 @@
+/* Grid */
+.attbr_grid {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+}
+.attbr_grid_cell {
+}
 /* Chunk it up a bit 1... */
 @media screen and (max-width: 800px) {
 	th.abposttime, th.absize, th.abdownloads,
 	td.abposttime, td.absize, td.abdownloads {
 		display: none;
+	}
+	.attbr_grid {
+		grid-template-columns: repeat(6, 1fr);
 	}
 }
 
@@ -12,6 +22,9 @@
 	td.abposter, td.abfileext, td.abposttime, td.absize, td.abdownloads {
 		display: none;
 	}
+	.attbr_grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
 }
 
 /* Chunk it up a bit 3... */
@@ -20,9 +33,13 @@
 	td.abposter, td.abfileext, td.abposttime, td.absize, td.abdownloads, td.abtags {
 		display: none;
 	}
+	.attbr_grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 
 /* Or else very long words, filenames can mess up smartphone tables */
- .absubject, .abfilename {
-	 word-break: break-word;
+.absubject, .abfilename {
+	word-break: break-word;
 }
+

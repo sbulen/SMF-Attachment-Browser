@@ -235,7 +235,7 @@ function add_attachment_tags($id_attach, $new_tags, $clear_first = false)
  */
 function get_attachment_info($id_attach)
 {
-	global $smcFunc, $user_info, $txt;
+	global $smcFunc, $user_info, $txt, $scripturl, $modSettings;
 
 	$info = array();
 
@@ -251,7 +251,7 @@ function get_attachment_info($id_attach)
 		$single = false;
 
 	$request = $smcFunc['db_query']('', '
-		SELECT a.id_attach, a.id_msg, a.filename, a.fileext, a.size, a.downloads, a.tags, m.subject, m.id_member, COALESCE(mem.real_name,"' . $txt['guest_title'] . '") AS real_name, CASE WHEN m.modified_time > 0 THEN m.modified_time ELSE m.poster_time END AS post_time
+		SELECT a.id_attach, a.id_msg, a.filename, a.fileext, a.size, a.downloads, a.tags, m.subject, m.id_member, a.id_thumb, a.height, a.width, COALESCE(mem.real_name,\'' . $txt['guest_title'] . '\') AS real_name, CASE WHEN m.modified_time > 0 THEN m.modified_time ELSE m.poster_time END AS post_time
 			FROM {db_prefix}attachments AS a
 			INNER JOIN {db_prefix}messages AS m ON (a.id_msg = m.id_msg)
 			LEFT JOIN {db_prefix}members AS mem ON (m.id_member = mem.id_member)
@@ -279,6 +279,23 @@ function get_attachment_info($id_attach)
 		$info[$row['id_attach']]['size'] = format_bkmg($info[$row['id_attach']]['size']);
 		$info[$row['id_attach']]['downloads'] = comma_format($info[$row['id_attach']]['downloads']);
 		$info[$row['id_attach']]['post_time'] =  smf_strftime('%Y-%m-%d', $info[$row['id_attach']]['post_time']);
+		$info[$row['id_attach']]['href'] = $scripturl . '?action=dlattach;attach=' . $row['id_attach'];
+
+		$info[$row['id_attach']]['is_image'] = !empty($info[$row['id_attach']]['width']) && !empty($info[$row['id_attach']]['height']);
+
+		// Handle thumbnails...
+		if (!empty($info[$row['id_attach']]['id_thumb']))
+			$info[$row['id_attach']]['thumbnail'] = array(
+				'id' => $info[$row['id_attach']]['id_thumb'],
+				'href' => $scripturl . '?action=dlattach;attach=' . $info[$row['id_attach']]['id_thumb'] . ';image',
+			);
+		$info[$row['id_attach']]['thumbnail']['has_thumb'] = !empty($info[$row['id_attach']]['id_thumb']);
+
+		// If the image is too large to show inline, make it a popup.
+		if (((!empty($modSettings['max_image_width']) && $info[$row['id_attach']]['width'] > $modSettings['max_image_width']) || (!empty($modSettings['max_image_height']) && $info[$row['id_attach']]['height'] > $modSettings['max_image_height'])))
+			$info[$row['id_attach']]['thumbnail']['javascript'] = 'return reqWin(\'' . $info[$row['id_attach']]['href'] . ';image\', ' . ($info[$row['id_attach']]['width'] + 20) . ', ' . ($info[$row['id_attach']]['height'] + 20) . ', true);';
+		else
+			$info[$row['id_attach']]['thumbnail']['javascript'] = 'return expandThumb(' . $row['id_attach'] . ');';
 	}
 
 	// Gotta check it exists...  Thumbnails can get caught late here...

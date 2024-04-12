@@ -20,17 +20,21 @@
  */
 
 /**
- * Displays a sortable listing of all attachments the user can see.
+ * Displays the attachments. This function has the common parts of both the list & grid views.
  */
 function template_main()
 {
-	global $context, $settings, $scripturl, $txt;
+	global $context, $scripturl, $txt;
 
 	echo '
 	<div class="main_section">
-		<div class="pagesection">
-			', template_button_strip($context['attbr_buttons'], 'right'), '
-			<div class="pagelinks floatleft">', $context['page_index'], '</div>
+		<div class="pagesection centertext">
+			<div class="pagelinks">', $context['page_index'], '</div>',
+			template_button_strip($context['attbr_buttons'], 'right'), '
+			<div id="attbr_buttonrow" class="buttonrow inline_block">
+				<a href="', $context['attbr_url'], ';viewlist" class="button', $context['attbr_view'] == 'viewlist' ? ' active' : '', '">', $txt['calendar_list'], '</a>
+				<a href="', $context['attbr_url'], ';viewgrid" class="button', $context['attbr_view'] == 'viewgrid' ? ' active' : '', '">', $txt['attbr_grid'], '</a>
+			</div>
 		</div>
 		<div class="cat_bar">
 			<h3 class="catbg">
@@ -38,13 +42,14 @@ function template_main()
 			</h3>
 		</div>';
 
+	// Display each of the column headers...  Even in grid view you want to sort, etc...
 	echo '
 		<div id="mlist">
 			<table class="table_grid">
 				<thead>
 					<tr class="title_bar">';
 
-	// Display each of the column headers of the table.
+
 	foreach ($context['columns'] as $key => $column)
 	{
 		if ($key == 'email_address' && !$context['can_send_email'])
@@ -65,7 +70,39 @@ function template_main()
 
 	echo '
 					</tr>
-				</thead>
+				</thead>';
+
+	// Branch out per grid or list request...
+	if ($context['attbr_view'] == 'viewgrid')
+		template_grid_view();
+	else
+		template_list_view();
+
+	// Show the page numbers again.
+	echo '
+		<div class="pagesection">
+			<div class="pagelinks floatleft">', $context['page_index'], '</div>';
+
+	// If displaying the result of a search show a "search again" link to edit their criteria.
+	// again=1 helps differentiate between going TO there or FROM there...
+	if (!empty($context['search_again_string']))
+		echo '
+			<div class="buttonlist floatright">
+				<a class="button" href="', $scripturl, '?action=attbr;sa=filter;again=1', $context['search_again_string'], '">', $txt['mlist_search_again'], '</a>
+			</div>';
+	echo '
+		</div>
+	</div>';
+}
+
+/**
+ * Displays a sortable listing of all attachments the user can see, in list form.
+ */
+function template_list_view()
+{
+	global $context, $scripturl, $txt;
+
+	echo '
 				<tbody>';
 
 	// Loop through each one displaying the data.
@@ -97,22 +134,64 @@ function template_main()
 				</tbody>
 			</table>
 		</div>';
+}
 
-	// Show the page numbers again.
+/**
+ * Paint the list of attachments as a grid...
+ */
+function template_grid_view()
+{
+	global $context, $scripturl, $txt, $settings;
+
+	// Need to close out the table...
 	echo '
-		<div class="pagesection">
-			<div class="pagelinks floatleft">', $context['page_index'], '</div>';
+			</table>
+		</div>';
 
-	// If displaying the result of a search show a "search again" link to edit their criteria.
-	// again=1 helps differentiate between going TO there or FROM there...
-	if (!empty($context['search_again_string']))
+	// Loop through each one displaying the data.
+	if (!empty($context['attachments']))
+	{
 		echo '
-			<div class="buttonlist floatright">
-				<a class="button" href="', $scripturl, '?action=attbr;sa=filter;again=1', $context['search_again_string'], '">', $txt['mlist_search_again'], '</a>
+		<div class="attbr_grid">';
+
+		foreach ($context['attachments'] as $attachment)
+		{
+			echo '
+			<div class="attbr_grid_cell roundframe">';
+
+			if ($attachment['is_image'])
+			{
+				if ($attachment['thumbnail']['has_thumb'])
+					echo '
+				<a href="', $attachment['thumbnail']['href'], ';image" id="link_', $attachment['id_attach'], '" onclick="', $attachment['thumbnail']['javascript'], '"><img src="', $attachment['thumbnail']['href'], '" alt="" id="thumb_', $attachment['id_attach'], '" class="atc_img"></a>';
+				else
+					echo '
+				<img src="' . $attachment['href'] . ';image" alt="" loading="lazy" class="atc_img">';
+			}
+			else
+			{
+				echo '
+				<img src="' . $settings['images_url'] . '/generic_attach.png" alt="" loading="lazy" class="atc_img">
+				<div class="xlargetext centertext">.', $attachment['fileext'], '<br><br></div>';
+			}
+
+			echo '
+				<div class="abfilename">
+					<a href="' . $scripturl . '?action=dlattach;attach=', $attachment['id_attach'], '" rel="ugc">', $attachment['filename'], '</a>
+				</div>
+				<div class="abposter">', $attachment['real_name'], '</div>
+				<a href="' . $scripturl . '?msg=', $attachment['id_msg'], '" rel="ugc" target="_blank"><div class="abposttime">', $attachment['post_time'], '</div></a>
 			</div>';
-	echo '
-		</div>
-	</div>';
+		}
+		// Close the grid
+		echo '
+		</div>';
+	}
+	// Display a message...
+	else
+		echo '<div>' . $txt['search_no_results'] . '</div>';
+
+
 }
 
 /**
