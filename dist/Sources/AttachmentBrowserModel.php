@@ -235,7 +235,7 @@ function add_attachment_tags($id_attach, $new_tags, $clear_first = false)
  */
 function get_attachment_info($id_attach)
 {
-	global $smcFunc, $user_info;
+	global $smcFunc, $user_info, $txt;
 
 	$info = array();
 
@@ -251,10 +251,10 @@ function get_attachment_info($id_attach)
 		$single = false;
 
 	$request = $smcFunc['db_query']('', '
-		SELECT a.id_attach, a.id_msg, a.filename, a.fileext, a.size, a.downloads, a.tags, m.subject, m.id_member, mem.real_name, CASE WHEN m.modified_time > 0 THEN m.modified_time ELSE m.poster_time END AS post_time
+		SELECT a.id_attach, a.id_msg, a.filename, a.fileext, a.size, a.downloads, a.tags, m.subject, m.id_member, COALESCE(mem.real_name,"' . $txt['guest_title'] . '") AS real_name, CASE WHEN m.modified_time > 0 THEN m.modified_time ELSE m.poster_time END AS post_time
 			FROM {db_prefix}attachments AS a
 			INNER JOIN {db_prefix}messages AS m ON (a.id_msg = m.id_msg)
-			INNER JOIN {db_prefix}members AS mem ON (m.id_member = mem.id_member)
+			LEFT JOIN {db_prefix}members AS mem ON (m.id_member = mem.id_member)
 		WHERE a.id_attach IN ({array_int:id_attach})
 			AND a.approved =  {int:approved}
 			AND m.approved =  {int:approved}
@@ -408,7 +408,7 @@ function query_attachments($query_parameters)
 		SELECT a.id_attach
 		FROM {db_prefix}attachments AS a
 			INNER JOIN {db_prefix}messages AS m ON (a.id_msg = m.id_msg)
-			INNER JOIN {db_prefix}members AS mem ON (m.id_member = mem.id_member)
+			LEFT JOIN {db_prefix}members AS mem ON (m.id_member = mem.id_member)
 		WHERE a.approved = {int:approved}
 			AND m.approved =  {int:approved}
 			AND a.attachment_type = {int:attachment_type}
@@ -437,7 +437,7 @@ function query_attachments($query_parameters)
 			SELECT COUNT(*)
 			FROM {db_prefix}attachments AS a
 				INNER JOIN {db_prefix}messages AS m ON (a.id_msg = m.id_msg)
-				INNER JOIN {db_prefix}members AS mem ON (m.id_member = mem.id_member)
+				LEFT JOIN {db_prefix}members AS mem ON (m.id_member = mem.id_member)
 			WHERE a.approved = {int:approved}
 				AND m.approved =  {int:approved}
 				AND a.attachment_type = {int:attachment_type}
