@@ -5,6 +5,9 @@
 }
 .attbr_grid_cell {
 }
+.attbr_img {
+	width: 100%;
+}
 /* Chunk it up a bit 1... */
 @media screen and (max-width: 800px) {
 	th.abposttime, th.absize, th.abdownloads,

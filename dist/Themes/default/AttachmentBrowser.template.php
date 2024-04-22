@@ -163,24 +163,24 @@ function template_grid_view()
 			{
 				if ($attachment['thumbnail']['has_thumb'])
 					echo '
-				<a href="', $attachment['thumbnail']['href'], ';image" id="link_', $attachment['id_attach'], '" onclick="', $attachment['thumbnail']['javascript'], '"><img src="', $attachment['thumbnail']['href'], '" alt="" id="thumb_', $attachment['id_attach'], '" class="atc_img"></a>';
+				<a href="', $attachment['thumbnail']['href'], ';image" id="link_', $attachment['id_attach'], '" onclick="', $attachment['thumbnail']['javascript'], '"><img src="', $attachment['thumbnail']['href'], '" alt="" id="thumb_', $attachment['id_attach'], '" class="attbr_img"></a>';
 				else
 					echo '
-				<img src="' . $attachment['href'] . ';image" alt="" loading="lazy" class="atc_img">';
+				<img src="' . $attachment['href'] . ';image" alt="" loading="lazy" class="attbr_img">';
 			}
 			else
 			{
 				echo '
-				<img src="' . $settings['images_url'] . '/generic_attach.png" alt="" loading="lazy" class="atc_img">
+				<img src="' . $settings['images_url'] . '/generic_attach.png" alt="" loading="lazy" class="attbr_img">
 				<div class="xlargetext centertext">.', $attachment['fileext'], '<br><br></div>';
 			}
 
 			echo '
-				<div class="abfilename">
+				<div class="abfilename centertext">
 					<a href="' . $scripturl . '?action=dlattach;attach=', $attachment['id_attach'], '" rel="ugc">', $attachment['filename'], '</a>
 				</div>
-				<div class="abposter">', $attachment['real_name'], '</div>
-				<a href="' . $scripturl . '?msg=', $attachment['id_msg'], '" rel="ugc" target="_blank"><div class="abposttime">', $attachment['post_time'], '</div></a>
+				<div class="abposter centertext">', $attachment['real_name'], '</div>
+				<a href="' . $scripturl . '?msg=', $attachment['id_msg'], '" rel="ugc" target="_blank"><div class="abposttime centertext">', $attachment['post_time'], '</div></a>
 			</div>';
 		}
 		// Close the grid
