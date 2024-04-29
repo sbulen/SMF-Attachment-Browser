@@ -239,6 +239,12 @@ function get_attachment_info($id_attach)
 
 	$info = array();
 
+	// It is oddly possible to get this far without having $txt loaded, but we need the basics.
+	// This happens when invoked by cron after an admin/moderator modifies someone else's post.
+	if (empty($txt))
+		loadLanguage('index');
+
+	// Clean up the request & get the info
 	if (empty($id_attach) || (!is_string($id_attach) && !is_numeric($id_attach) && !is_array($id_attach)))
 		return $info;
 
