@@ -23,6 +23,7 @@ A "Search Again" button is provided to allow the user to refine the filter.
  - Performance is a concern given the flexibility provided.  This mod may not be appropriate for extremely large forums.  In testing, for forums with less than 20K attachments, performance is sub-second.  For a forum with 500K attachments, performance is ~2-6 seconds per page. YMMV. The more filters used to narrow the result set, the better!
 
 [b]Releases:[/b]
+ - v2.3 Use html5 date picker; required for SMF 2.1.7
  - v2.2 Addresses null error when admins modify posts
  - v2.1 Enhancements to grid view
  - v2.0 Added grid view; improved handling of guest attachments

@@ -2,7 +2,7 @@
 /**
  *	Main logic for the Attachment Browser mod for SMF.
  *
- *	Copyright 2022-2024 Shawn Bulen
+ *	Copyright 2022-2026 Shawn Bulen
  *
  *	The Attachment Browser is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -415,7 +415,6 @@ function attachment_filter()
 
 		// Use handy date range routines
 		require_once($sourcedir . '/Subs-Calendar.php');
-		loadDatePicker('#post_range_input .date_input');
 		loadDatePair('#post_range_input', 'date_input');
 	}
 

@@ -2,7 +2,7 @@
 /**
  *	Template for the Attachment Browser mod for SMF.
  *
- *	Copyright 2022-2024 Shawn Bulen
+ *	Copyright 2022-2026 Shawn Bulen
  *
  *	The Attachment Browser is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -232,7 +232,7 @@ function template_filter()
 							<label for="start_date"><strong>', $txt['post_time'], ':</strong></label>
 						</dt>
 						<dd>
-							<input type="text" name="start_date" id="start_date" value="', (!empty($context['old_search']['start_date']) ? $context['old_search']['start_date'] : ''), '" class="date_input start" data-type="date"> ', strtolower($txt['to']), ' </strong></label><input type="text" name="end_date" id="end_date" value="', (!empty($context['old_search']['end_date']) ? $context['old_search']['end_date'] : ''), '" class="date_input end" data-type="date">
+							<input type="date" name="start_date" id="start_date" value="', (!empty($context['old_search']['start_date']) ? $context['old_search']['start_date'] : ''), '" class="date_input start" data-type="date"> ', strtolower($txt['to']), ' </strong></label><input type="date" name="end_date" id="end_date" value="', (!empty($context['old_search']['end_date']) ? $context['old_search']['end_date'] : ''), '" class="date_input end" data-type="date">
 						</dd>
 					</div>
 				</dl>';
